@@ -37,3 +37,4 @@ c)select rodzaj,avg(year(current_timestamp)-year(dataUr)) as 'sredni wiek' from 
 ZAD 2:
 a)select rodzaj, sum(waga*ilosc) from zasob group by rodzaj;
 b)select nazwa, avg(waga) from zasob group by nazwa having avg(waga)>10 and sum(ilosc)>=4;
+c)select rodzaj,count(distinct(nazwa)), from zasob group by rodzaj having sum(ilosc)>1;
