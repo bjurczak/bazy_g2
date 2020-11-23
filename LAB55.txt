@@ -1,0 +1,29 @@
+LAB 5
+ZAD1:
+a).
+create table kreatura select * from wikingowie.kreatura;
+create table zasob select * from wikingowie.zasob;
+create table ekwipunek select * from wikingowie.ekwipunek;
+b).select * from zasob;
+d).select idZasobu, ilosc from ekwipunek where idKreatury=3 or idKreatury=1 or idKreatury=5;
+albo  select idZasobu, ilosc from ekwipunek where idKreatury IN(1,3,5);
+
+ZAD 2:
+a) select * from kreatura where rodzaj !='wiedzma' and udzwig >=50;
+b)select * from zasob where waga between 2 and 5;
+c)select * from kreatura where nazwa like '%or%' and udzwig between 30 and 70;
+
+ZAD 3:
+a)select * from zasob where month(dataPozyskania) IN ('07','08');
+b)select * from zasob where rodzaj IS NOT NULL order by waga asc;
+c) select * from Kreatura order by dataUr asc limit 5;
+
+ZAD 4:
+a)select distinct rodzaj from zasob;
+b)select concat(nazwa, " - ",  rodzaj) from kreatura where rodzaj like 'wi%';
+c)select nazwa, ilosc*waga as waga_calkowita from zasob where year(dataPozyskania) between 2000 and 2007 ;
+
+ZAD 5:
+a)select nazwa,ilosc*waga*0.7 as 'masa wlasciwa',ilosc*waga*0.3 as 'odpady' from zasob ;
+b)select nazwa from zasob where rodzaj is null;
+c)
