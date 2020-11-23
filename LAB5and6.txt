@@ -26,4 +26,14 @@ c)select nazwa, ilosc*waga as waga_calkowita from zasob where year(dataPozyskani
 ZAD 5:
 a)select nazwa,ilosc*waga*0.7 as 'masa wlasciwa',ilosc*waga*0.3 as 'odpady' from zasob ;
 b)select nazwa from zasob where rodzaj is null;
-c)
+c)select distinct rodzaj,nazwa from zasob where nazwa like '&os' or nazwa like 'os&' order by nazwa asc;
+
+LAB 6:
+ZAD 1:
+a)select avg(waga) from kreatura where rodzaj='wiking';
+b)select rodzaj, avg(waga) as 'sredniaWaga', count(nazwa) as 'liczbaKreatur' from kreatura group by rodzaj
+c)select rodzaj,avg(year(current_timestamp)-year(dataUr)) as 'sredni wiek' from kreatura group by rodzaj ;
+
+ZAD 2:
+a)select rodzaj, sum(waga*ilosc) from zasob group by rodzaj;
+b)select nazwa, avg(waga) from zasob group by nazwa having avg(waga)>10 and sum(ilosc)>=4;
