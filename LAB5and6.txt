@@ -38,3 +38,48 @@ ZAD 2:
 a)select rodzaj, sum(waga*ilosc) from zasob group by rodzaj;
 b)select nazwa, avg(waga) from zasob group by nazwa having avg(waga)>10 and sum(ilosc)>=4;
 c)select rodzaj,count(distinct(nazwa)), from zasob group by rodzaj having sum(ilosc)>1;
+ZAD 3:
+a) select k.nazwa, sum(e.ilosc) from kreatura as k INNER JOIN ekwipunek e ON k.idKreatury=e.idKreatury group by k.nazwa;
+ALBO TO
+ select k.nazwa, e.idZasobu, e.ilosc from kreatura k,ekwipunek e where k.idKreatury=e.idKreatury;
+b) 
+c)SELECT k.nazwa FROM kreatura k
+LEFT JOIN ekwipunek e
+ON k.idKreatury=e.idKreatury
+WHERE e.idKreatury IS NULL;
+lub
+SELECT idKreatury FROM kreatura WHERE idKreatury
+NOT IN (SELECT idKreatury FROM ekwipunek
+WHERE idKreatury IS NOT NULL);
+
+ZAD 4:
+a)SELECT k.nazwa, z.nazwa FROM kreatura as k, ekwipunek as e, zasob as z WHERE k.idKreatury=e.idKreatury and e.idZasobu=z.idZasobu AND k.rodzaj='wiking' AND k.dataUr BETWEEN '1670-01-01' AND '1679-12-31';
+b) SELECT k.nazwa FROM kreatura AS k, ekwipunek AS e, zasob AS z WHERE k.idKreatury=e.idKreatury AND e.idZasobu=z.idZasobu AND z.rodzaj='jedzenie' ORDER BY k.dataUr DESC LIMIT 5;
+c) select concat(k.nazwa,' - ',k2.nazwa) from kreatura as k, kreatura as k2 where k2.idKreatury=k.idkreatury+5;
+
+ZAD 5:
+a)select k.rodzaj, avg(e.ilosc*z.waga) as srednia
+from kreatura as k inner join ekwipunek as e
+inner join zasob as z on k.idKreatury=e.idKreatury
+and e.idZasobu=z.idZasobu where k.rodzaj
+NOT IN('malpa', 'waz')
+group by k.rodzaj having sum(e.ilosc)<30;
+b)select a.nazwa, a.rodzaj, a.dataUr from kreatura a, (SELECT min(dataUr) min, max(dataUr) max
+from kreatura group by rodzaj) b WHERE b.min = a.dataUr OR b.max=a.dataUr;
+----------------------------------------------------------------------------------------------------
+LAB7
+ZAD1:
+a)create table etapy_wyprawy select * from wikingowie.etapy_wyprawy;
+create table uczestnicy select * from wikingowie.uczestnicy;
+create table sektor select * from wikingowie.sektor;
+create table wyprawa select * from wikingowie.wyprawa;
+b) select k.nazwa, u.id_uczestnika 
+FROM kreatura as k 
+LEFT JOIN uczestnicy as u 
+ON k.idKreatury=u.id_uczestnika where u.id_uczestnika is NULL;
+c)SELECT w.nazwa, SUM(e.ilosc) 
+FROM kreatura as k, wyprawa as w, uczestnicy as u, ekwipunek as e 
+WHERE k.idKreatury=e.idKreatury AND k.idKreatury=u.id_uczestnika AND u.id_wyprawy=w.id_wyprawy GROUP BY w.nazwa;
+ZAD2:
+
+
