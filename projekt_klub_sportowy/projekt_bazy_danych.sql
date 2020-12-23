@@ -128,3 +128,14 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+
+               
+               DELIMITER $$
+CREATE FUNCTION policz_zawodnikow()
+RETURNS integer
+BEGIN
+DECLARE ile INT;
+select count(*) into @ile from zawodnik where kraj_pochodzenia= 'Hiszpania';
+return @ile;
+END
+$$
