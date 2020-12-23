@@ -129,3 +129,36 @@ ENGINE = InnoDB;
 SET SQL_MODE=@OLD_SQL_MODE;
 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS;
 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS;
+               
+               DELIMITER $$
+CREATE TRIGGER sztab_bi
+BEFORE INSTERT on sztab szkoleniowy
+FOR EACH ROW
+BEGIN
+if NEW.pensja < 10000
+THEN
+SET NEW.pensja = 10000;
+END IF;
+END
+$$
+
+
+ DELIMITER $$
+CREATE FUNCTION policz_zawodnikow()
+RETURNS integer
+BEGIN
+DECLARE ile INT;
+select count(*) into @ile from zawodnik where kraj_pochodzenia= 'Hiszpania';
+return @ile;
+END
+$$
+
+
+DELIMITER $$
+CREATE PROCEDURE wiecej_miejsc(VARCHAR(45))
+BEGIN
+UPDATE stadion set ilosc_miejsc = 1.1 * ilosc_miejsc where id_stadion = id;
+END 
+$$
+DELIMITER;
+
